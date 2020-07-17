@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
-const port = 4000;
+const port = 8080;
 const route = require('./config/route');
 
 app.use(bodyParser.json());
