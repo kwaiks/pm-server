@@ -24,12 +24,10 @@ const insertMonitorData = (req,res) => {
 
 const getVoltageDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    console.log(lantai);
-    db.query(`SELECT voltage from monitor_logs WHERE created_on = current_date AND lantai = 'lantai7'`,(err,results)=>{
+    db.query(`SELECT voltage,created_on from monitor_logs WHERE DATE(created_on) = current_date AND lantai = $1`,[lantai],(err,results)=>{
         if(err){
             throw err;
         }
-        console.log(results)
         res.status(200).send(results.rows);
     });
 }
