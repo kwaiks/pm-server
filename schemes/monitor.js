@@ -12,8 +12,6 @@ const insertMonitorData = (req,res) => {
     const energyBill = Number(req.body.energyBill);
     const lantai = req.body.lantai;
 
-    console.log(req.body);
-
     db.query('INSERT INTO monitor_logs (voltage,current,active_power,reactive_power,apparent_power,power_factor,frequency,total_energy,energy_bill,lantai) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[voltage,current,activePower,reactivePower,apparentPower,powerFactor,frequency,totalEnergy,energyBill,lantai],(err,result)=>{
         if(err){
             throw err;
@@ -24,7 +22,7 @@ const insertMonitorData = (req,res) => {
 
 const getVoltageDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query(`SELECT voltage,created_on from monitor_logs WHERE DATE(created_on) = current_date AND lantai = $1`,[lantai],(err,results)=>{
+    db.query(`SELECT voltage,created_on from monitor_logs WHERE DATE(created_on) = current_date AND lantai = $1`,[lantai],(err,results)=>{ //
         if(err){
             throw err;
         }
@@ -34,7 +32,7 @@ const getVoltageDailyReport = (req,res)=>{
 
 const getCurrentDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT current from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT current,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
@@ -44,7 +42,7 @@ const getCurrentDailyReport = (req,res)=>{
 
 const getActivePowerDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT active_power from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT active_power,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
@@ -54,7 +52,7 @@ const getActivePowerDailyReport = (req,res)=>{
 
 const getReactivePowerDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT reactive_power from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT reactive_power,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
@@ -64,7 +62,7 @@ const getReactivePowerDailyReport = (req,res)=>{
 
 const getApparentPowerDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT apparent_power from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT apparent_power,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
@@ -74,7 +72,7 @@ const getApparentPowerDailyReport = (req,res)=>{
 
 const getPowerFactorDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT power_factor from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT power_factor,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
@@ -84,7 +82,7 @@ const getPowerFactorDailyReport = (req,res)=>{
 
 const getTotalEnergyDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT voltage from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
+    db.query('SELECT voltage,created_on from monitor_logs WHERE created_on = current_date() AND lantai = ?',[lantai],(err,results)=>{
         if(err){
             throw err;
         }
