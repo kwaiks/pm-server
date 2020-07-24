@@ -82,11 +82,11 @@ const getPowerFactorDailyReport = (req,res)=>{
 
 const getTotalEnergyDailyReport = (req,res)=>{
     const lantai = req.params.lantai;
-    db.query('SELECT voltage,created_on from monitor_logs WHERE DATE(created_on) = current_date AND lantai = ?',[lantai],(err,results)=>{
+    db.query(`SELECT total_energy,created_on from monitor_logs WHERE DATE(created_on) = current_date AND lantai = $1`,[lantai],(err,results)=>{ //
         if(err){
             throw err;
         }
-        res.status(200).send(results);
+        res.status(200).send(results.rows);
     });
 }
 
