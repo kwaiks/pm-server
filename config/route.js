@@ -7,5 +7,6 @@ router.get("/daily/energy/:lantai",monitorScheme.getTotalEnergyDailyReport);
 router.get("/",function(req,res){
     res.status(200).send('Home');
 })
+router.post("/report",monitorScheme.getReportByDate);
 
 module.exports = router;

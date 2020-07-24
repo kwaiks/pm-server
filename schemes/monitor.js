@@ -90,6 +90,18 @@ const getTotalEnergyDailyReport = (req,res)=>{
     });
 }
 
+const getReportByDate = (req,res) => {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    db.query(`SELECT * FROM monitor_logs WHERE DATE(created_on) >= $1 AND DATE(created_on) <= $2`,[startDate,endDate],(err,results)=>{
+        if(err){
+            console.log(err);
+            res.status(400).send('error');
+        }
+        res.status(200).send(results.rows);
+    })
+}
+
 
 module.exports ={
     insertMonitorData,
@@ -100,4 +112,5 @@ module.exports ={
     getApparentPowerDailyReport,
     getPowerFactorDailyReport,
     getTotalEnergyDailyReport,
+    getReportByDate,
 }
