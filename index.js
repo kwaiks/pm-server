@@ -6,6 +6,7 @@ const cors = require('cors');
 const port = 8088;
 const route = require('./config/route');
 
+app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
