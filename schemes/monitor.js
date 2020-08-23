@@ -14,7 +14,7 @@ const insertMonitorData = (req,res) => {
 
     db.query('INSERT INTO monitor_logs (voltage,current,active_power,reactive_power,apparent_power,power_factor,frequency,active_energy,reactive_energy,lantai) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[voltage,current,activePower,reactivePower,apparentPower,powerFactor,frequency,totalEnergy,reactiveEnergy,lantai],(err,result)=>{
         if(err){
-            res.status(500).send(err)
+            return res.status(500).send(err)
         }
         res.status(200).send('Sent');
     });
